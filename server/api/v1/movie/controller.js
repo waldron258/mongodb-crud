@@ -31,3 +31,68 @@ exports.create = async (req, res, next) => {
     next(new Error(error));
   }
 };
+
+exports.getMovie = (req, res, next) => {
+  const { body } = req;
+  Model.find({
+    $or: [
+      { name: body.name },
+      { releaseDate: body.releaseDate },
+      { genre: body.genre },
+      { director: body.director },
+      { screenwriter: body.screenwriter },
+    ],
+  })
+    //.populate("actors")
+    .then((movie) => {
+      res.send(movie);
+    })
+    .catch((error) => {
+      res.send({
+        message: "Some error ocurred while retriving this movie!",
+        error: error,
+      });
+    });
+};
+
+exports.getAllMovies = (req, res, next) => {
+  Model.find({})
+    //.populate("actors")
+    .then((movies) => {
+      res.send(movies);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error ocurred while retriving movies!",
+      });
+    });
+};
+
+exports.updateMovie = (req, res, next) => {
+  const { body } = req;
+  Model.findOneAndUpdate({ _id: body.id }, body)
+    .then(() => {
+      res.send({ success: true });
+    })
+    .catch(() => {
+      res.status(500).send({
+        message: "Some error occurred while updating the movie",
+      });
+    });
+};
+
+exports.deleteMovie = async (req, res, next) => {
+  const { body } = req;
+  Model.findByIdAndDelete(body.id, body)
+    .then(() => {
+      res.send({
+        success: true,
+        message: "The movie was successfully deleted!",
+      });
+    })
+    .catch(() => {
+      res.status(500).send({
+        message: "Some error occurred while deleting the movie!",
+      });
+    });
+};

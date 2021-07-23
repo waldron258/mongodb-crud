@@ -1,11 +1,12 @@
 const awsServerlessExpress = require("aws-serverless-express");
 const app = require("./server/index");
 
+const server = awsServerlessExpress.createServer(app);
 /*
 AWS
-*/
 
-const server = awsServerlessExpress.createServer(app);
+
+*/
 
 exports.handler = (event, context) => {
   return awsServerlessExpress.proxy(server, event, context);
@@ -14,7 +15,7 @@ exports.handler = (event, context) => {
 /*
 LOCAL
 
-const PORT = process.env.PORT || 1234;
+const PORT = process.env.PORT;
 
 app.get("/", (req, res) => {
   res.send("API correctly running");
