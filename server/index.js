@@ -3,9 +3,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const logger = require("winston");
 
-const connectDB = require("./database");
-connectDB();
-
 const api = require("./api/v1");
 
 const app = express();

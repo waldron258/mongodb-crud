@@ -5,15 +5,10 @@ const server = awsServerlessExpress.createServer(app);
 /*
 AWS
 
-
-*/
-
 exports.handler = (event, context) => {
   return awsServerlessExpress.proxy(server, event, context);
 };
-
-/*
-LOCAL
+*/
 
 const PORT = process.env.PORT;
 
@@ -23,6 +18,11 @@ app.get("/", (req, res) => {
 
 server.listen(PORT, function () {
   var port = server.address().port;
-  console.log("App correctly running on port ", PORT);
+  console.log("App correctly running on http://localhost:" + PORT);
 });
+
+/*
+LOCAL
+
+
 */

@@ -4,15 +4,15 @@ const controller = require("./controller");
 /* ----------- POST ----------- */
 
 router.route("/create").post(controller.create);
-router.route("/updateMovie").post(controller.updateMovie);
+router.route("/update").post(controller.update);
+router.route("/likes").post(controller.likes);
 
 /* ----------- GET ----------- */
 
-router.route("/getAllMovies").get(controller.getAllMovies);
-router.route("/getMovie").get(controller.getMovie);
+router.route("/retrieve").get(controller.retrieve);
 
 /* ----------- DELETE ----------- */
 
-router.route("/deleteMovie").delete(controller.deleteMovie);
+router.route("/remove").delete(controller.remove);
 
 module.exports = router;
